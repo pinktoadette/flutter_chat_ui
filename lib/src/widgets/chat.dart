@@ -87,6 +87,7 @@ class Chat extends StatefulWidget {
     this.scrollToUnreadOptions = const ScrollToUnreadOptions(),
     this.showUserAvatars = false,
     this.showUserNames = false,
+    this.messageFooterIcon,
     this.hideFooter,
     this.systemMessageBuilder,
     this.textMessageBuilder,
@@ -316,6 +317,9 @@ class Chat extends StatefulWidget {
   /// See [Message.userAgent].
   final String? userAgent;
 
+  /// Footer icon under messages.
+  final Icon? messageFooterIcon;
+
   /// hide message footer icon.
   final bool? hideFooter;
 
@@ -487,6 +491,7 @@ class ChatState extends State<Chat> {
             usePreviewData: widget.usePreviewData,
             userAgent: widget.userAgent,
             videoMessageBuilder: widget.videoMessageBuilder,
+            messageFooterIcon: widget.messageFooterIcon,
             hideFooter: widget.hideFooter);
       }
 

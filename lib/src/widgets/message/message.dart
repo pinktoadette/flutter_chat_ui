@@ -393,6 +393,7 @@ class Message extends StatelessWidget {
                 ),
                 if (hideFooter != true)
                   Container(
+                    padding: const EdgeInsets.only(top: 10),
                     alignment: bubbleRtlAlignment == BubbleRtlAlignment.left
                         ? currentUserIsAuthor
                             ? AlignmentDirectional.bottomEnd
