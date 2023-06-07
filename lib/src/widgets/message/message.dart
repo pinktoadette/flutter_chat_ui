@@ -44,6 +44,9 @@ class Message extends StatelessWidget {
     this.onMessageTap,
     this.onMessageVisibilityChanged,
     this.onPreviewDataFetched,
+    this.onMessageFooterTap,
+    this.messageFooterIcon,
+    this.hideFooter,
     required this.roundBorder,
     required this.showAvatar,
     required this.showName,
@@ -106,6 +109,12 @@ class Message extends StatelessWidget {
   final Widget Function(types.ImageMessage, {required int messageWidth})?
       imageMessageBuilder;
 
+  /// Footer icon under messages.
+  final Icon? messageFooterIcon;
+
+  /// Hide message footer.
+  final bool? hideFooter;
+
   /// See [Chat.imageProviderBuilder].
   final ImageProvider Function({
     required String uri,
@@ -147,6 +156,9 @@ class Message extends StatelessWidget {
   /// See [TextMessage.onPreviewDataFetched].
   final void Function(types.TextMessage, types.PreviewData)?
       onPreviewDataFetched;
+
+  /// Called when user taps on footer, under message.
+  final void Function(BuildContext context, types.Message)? onMessageFooterTap;
 
   /// Rounds border of the message to visually group messages together.
   final bool roundBorder;
@@ -208,6 +220,7 @@ class Message extends StatelessWidget {
           : enlargeEmojis && hideBackgroundOnEmojiMessages
               ? _messageBuilder()
               : Container(
+                  alignment: !currentUserIsAuthor ? Alignment.bottomLeft : null,
                   decoration: BoxDecoration(
                     borderRadius: borderRadius,
                     color: !currentUserIsAuthor ||
@@ -276,6 +289,11 @@ class Message extends StatelessWidget {
         return const SizedBox();
     }
   }
+
+  Widget _messageFooter() => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [messageFooterIcon ?? const Icon(Icons.bookmark)],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -373,6 +391,21 @@ class Message extends StatelessWidget {
                           enlargeEmojis,
                         ),
                 ),
+                if (hideFooter != true)
+                  Container(
+                    alignment: bubbleRtlAlignment == BubbleRtlAlignment.left
+                        ? currentUserIsAuthor
+                            ? AlignmentDirectional.bottomEnd
+                            : AlignmentDirectional.bottomStart
+                        : currentUserIsAuthor
+                            ? Alignment.bottomRight
+                            : Alignment.bottomLeft,
+                    child: GestureDetector(
+                      onTap: () => onMessageFooterTap?.call(context, message),
+                      child: messageFooterIcon ??
+                          const Icon(Icons.bookmark, size: 16),
+                    ),
+                  ),
               ],
             ),
           ),
