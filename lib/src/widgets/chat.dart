@@ -88,7 +88,6 @@ class Chat extends StatefulWidget {
     this.showUserAvatars = false,
     this.showUserNames = false,
     this.listFooterWidget,
-    this.hideFooter,
     this.systemMessageBuilder,
     this.textMessageBuilder,
     this.textMessageOptions = const TextMessageOptions(),
@@ -320,9 +319,6 @@ class Chat extends StatefulWidget {
   /// Footer icon under messages.
   final List<Widget>? listFooterWidget;
 
-  /// Hide message footer icon.
-  final bool? hideFooter;
-
   /// See [ChatList.useTopSafeAreaInset].
   final bool? useTopSafeAreaInset;
 
@@ -492,7 +488,6 @@ class ChatState extends State<Chat> {
           userAgent: widget.userAgent,
           videoMessageBuilder: widget.videoMessageBuilder,
           listFooterWidget: widget.listFooterWidget,
-          hideFooter: widget.hideFooter,
         );
       }
 

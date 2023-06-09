@@ -47,7 +47,6 @@ class Message extends StatelessWidget {
     this.onPreviewDataFetched,
     this.onMessageFooterTap,
     this.listFooterWidget,
-    this.hideFooter,
     required this.roundBorder,
     required this.showAvatar,
     required this.showName,
@@ -109,9 +108,6 @@ class Message extends StatelessWidget {
   /// Build an image message inside predefined bubble.
   final Widget Function(types.ImageMessage, {required int messageWidth})?
       imageMessageBuilder;
-
-  /// Hide message footer.
-  final bool? hideFooter;
 
   /// See [Chat.imageProviderBuilder].
   final ImageProvider Function({
@@ -387,28 +383,27 @@ class Message extends StatelessWidget {
                           enlargeEmojis,
                         ),
                 ),
-                if (hideFooter != true)
-                  Container(
-                    padding: const EdgeInsets.only(top: 10),
-                    alignment: bubbleRtlAlignment == BubbleRtlAlignment.left
-                        ? currentUserIsAuthor
-                            ? AlignmentDirectional.bottomEnd
-                            : AlignmentDirectional.bottomStart
-                        : currentUserIsAuthor
-                            ? Alignment.bottomRight
-                            : Alignment.bottomLeft,
-                    child: GestureDetector(
-                      onTapDown: (TapDownDetails _) {
-                        onMessageFooterTap?.call(context, message);
-                      },
-                      child: Row(
-                        mainAxisAlignment: currentUserIsAuthor
-                            ? MainAxisAlignment.end
-                            : MainAxisAlignment.start,
-                        children: listFooterWidget ?? [],
-                      ),
+                Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  alignment: bubbleRtlAlignment == BubbleRtlAlignment.left
+                      ? currentUserIsAuthor
+                          ? AlignmentDirectional.bottomEnd
+                          : AlignmentDirectional.bottomStart
+                      : currentUserIsAuthor
+                          ? Alignment.bottomRight
+                          : Alignment.bottomLeft,
+                  child: GestureDetector(
+                    onTapDown: (TapDownDetails _) {
+                      onMessageFooterTap?.call(context, message);
+                    },
+                    child: Row(
+                      mainAxisAlignment: currentUserIsAuthor
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.start,
+                      children: listFooterWidget ?? [],
                     ),
                   ),
+                ),
               ],
             ),
           ),
