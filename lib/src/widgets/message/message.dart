@@ -397,18 +397,9 @@ class Message extends StatelessWidget {
                         : currentUserIsAuthor
                             ? Alignment.bottomRight
                             : Alignment.bottomLeft,
-                    child: RawGestureDetector(
-                      gestures: <Type, GestureRecognizerFactory>{
-                        TapGestureRecognizer:
-                            GestureRecognizerFactoryWithHandlers<
-                                TapGestureRecognizer>(
-                          () => TapGestureRecognizer(),
-                          (TapGestureRecognizer instance) {
-                            instance.onTapDown = (TapDownDetails details) {
-                              onMessageFooterTap?.call(context, message);
-                            };
-                          },
-                        ),
+                    child: GestureDetector(
+                      onTapDown: (TapDownDetails _) {
+                        onMessageFooterTap?.call(context, message);
                       },
                       child: Row(
                         mainAxisAlignment: currentUserIsAuthor
