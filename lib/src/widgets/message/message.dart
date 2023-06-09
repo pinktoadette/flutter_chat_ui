@@ -45,7 +45,7 @@ class Message extends StatelessWidget {
     this.onMessageVisibilityChanged,
     this.onPreviewDataFetched,
     this.onMessageFooterTap,
-    this.messageFooterIcon,
+    this.listFooterWidget,
     this.hideFooter,
     required this.roundBorder,
     required this.showAvatar,
@@ -109,9 +109,6 @@ class Message extends StatelessWidget {
   final Widget Function(types.ImageMessage, {required int messageWidth})?
       imageMessageBuilder;
 
-  /// Footer icon under messages.
-  final Icon? messageFooterIcon;
-
   /// Hide message footer.
   final bool? hideFooter;
 
@@ -159,6 +156,9 @@ class Message extends StatelessWidget {
 
   /// Called when user taps on footer, under message.
   final void Function(BuildContext context, types.Message)? onMessageFooterTap;
+
+  /// List of widgets in messages's footer.
+  final List<Widget>? listFooterWidget;
 
   /// Rounds border of the message to visually group messages together.
   final bool roundBorder;
@@ -290,11 +290,6 @@ class Message extends StatelessWidget {
     }
   }
 
-  Widget _messageFooter() => Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [messageFooterIcon ?? const Icon(Icons.bookmark)],
-      );
-
   @override
   Widget build(BuildContext context) {
     final query = MediaQuery.of(context);
@@ -403,8 +398,12 @@ class Message extends StatelessWidget {
                             : Alignment.bottomLeft,
                     child: GestureDetector(
                       onTap: () => onMessageFooterTap?.call(context, message),
-                      child: messageFooterIcon ??
-                          const Icon(Icons.bookmark, size: 16),
+                      child: Row(
+                        mainAxisAlignment: currentUserIsAuthor
+                            ? MainAxisAlignment.end
+                            : MainAxisAlignment.start,
+                        children: listFooterWidget ?? [],
+                      ),
                     ),
                   ),
               ],
