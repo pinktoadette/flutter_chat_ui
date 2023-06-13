@@ -1,6 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_chat_ui/src/widgets/message_footer.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../conditional/conditional.dart';
@@ -392,16 +392,12 @@ class Message extends StatelessWidget {
                       : currentUserIsAuthor
                           ? Alignment.bottomRight
                           : Alignment.bottomLeft,
-                  child: GestureDetector(
-                    onTapDown: (TapDownDetails _) {
+                  child: MessageFooter(
+                    bottomWidget: listFooterWidget ?? [],
+                    onElementClick: (_) {
                       onMessageFooterTap?.call(context, message);
                     },
-                    child: Row(
-                      mainAxisAlignment: currentUserIsAuthor
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
-                      children: listFooterWidget ?? [],
-                    ),
+                    currentUserIsAuthor: currentUserIsAuthor,
                   ),
                 ),
               ],

@@ -476,7 +476,6 @@ class ChatState extends State<Chat> {
           },
           onMessageVisibilityChanged: widget.onMessageVisibilityChanged,
           onPreviewDataFetched: _onPreviewDataFetched,
-          onMessageFooterTap: widget.onMessageFooterTap,
           roundBorder: map['nextMessageInGroup'] == true,
           showAvatar: map['nextMessageInGroup'] == false,
           showName: map['showName'] == true,
@@ -488,6 +487,7 @@ class ChatState extends State<Chat> {
           userAgent: widget.userAgent,
           videoMessageBuilder: widget.videoMessageBuilder,
           listFooterWidget: widget.listFooterWidget,
+          onMessageFooterTap: widget.onMessageFooterTap,
         );
       }
 

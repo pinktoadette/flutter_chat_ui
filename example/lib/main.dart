@@ -36,6 +36,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
+  int? _tappedIndex;
   final _user = const types.User(
     id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
   );
@@ -222,16 +223,57 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
+  List<GestureDetector> gestures() => [
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _tappedIndex = 0;
+            });
+          },
+          child: Container(
+            color: Colors.yellow.shade600,
+            padding: const EdgeInsets.all(8),
+            child: const Text('TURN LIGHTS ON'),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _tappedIndex = 1;
+            });
+          },
+          child: Container(
+            color: Colors.red.shade600,
+            padding: const EdgeInsets.all(8),
+            child: const Text('TURN LIGHTS ON'),
+          ),
+        ),
+      ];
+
+  List<Widget> _listWidget() => gestures()
+      .map((gesture) => TextButton(
+            onPressed: () {
+              gesture.onTap!();
+            },
+            child: const Text('Click Here'),
+          ))
+      .toList();
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Chat(
-            messages: _messages,
-            onAttachmentPressed: _handleAttachmentPressed,
-            onMessageTap: _handleMessageTap,
-            onPreviewDataFetched: _handlePreviewDataFetched,
-            onSendPressed: _handleSendPressed,
-            showUserAvatars: true,
-            showUserNames: true,
-            user: _user),
+          messages: _messages,
+          onAttachmentPressed: _handleAttachmentPressed,
+          onMessageTap: _handleMessageTap,
+          onPreviewDataFetched: _handlePreviewDataFetched,
+          onSendPressed: _handleSendPressed,
+          showUserAvatars: true,
+          showUserNames: true,
+          listFooterWidget: _listWidget(),
+          onMessageFooterTap: (context, p1) {
+            print(p1);
+          },
+          user: _user,
+        ),
       );
 }
