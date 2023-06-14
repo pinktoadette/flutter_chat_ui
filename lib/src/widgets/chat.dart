@@ -603,7 +603,6 @@ class ChatState extends State<Chat> {
                                     BoxConstraints constraints,
                                   ) =>
                                       ChatList(
-                                    bottomWidget: widget.listBottomWidget,
                                     bubbleRtlAlignment:
                                         widget.bubbleRtlAlignment!,
                                     isLastPage: widget.isLastPage,
@@ -629,6 +628,7 @@ class ChatState extends State<Chat> {
                                 ),
                               ),
                       ),
+                      widget.listBottomWidget ?? const SizedBox.shrink(),
                       widget.customBottomWidget ??
                           Input(
                             isAttachmentUploading: widget.isAttachmentUploading,
