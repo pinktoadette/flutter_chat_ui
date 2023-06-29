@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-import 'package:flutter_chat_ui/src/widgets/message_footer.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../conditional/conditional.dart';
@@ -45,8 +44,6 @@ class Message extends StatelessWidget {
     this.onMessageTap,
     this.onMessageVisibilityChanged,
     this.onPreviewDataFetched,
-    this.onMessageFooterTap,
-    this.listFooterWidget,
     this.listFooterWidgetBuilder,
     required this.roundBorder,
     required this.showAvatar,
@@ -151,12 +148,6 @@ class Message extends StatelessWidget {
   /// See [TextMessage.onPreviewDataFetched].
   final void Function(types.TextMessage, types.PreviewData)?
       onPreviewDataFetched;
-
-  /// Called when user taps on footer, under message.
-  final void Function(BuildContext context, types.Message)? onMessageFooterTap;
-
-  /// List of widgets in messages's footer.
-  final List<Widget>? listFooterWidget;
 
   /// List footer builder.
   final List<Widget> Function(types.Message)? listFooterWidgetBuilder;

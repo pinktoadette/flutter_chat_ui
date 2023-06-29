@@ -80,7 +80,6 @@ class Chat extends StatefulWidget {
     this.onMessageTap,
     this.onMessageVisibilityChanged,
     this.onPreviewDataFetched,
-    this.onMessageFooterTap,
     this.listFooterWidgetBuilder,
     required this.onSendPressed,
     this.scrollController,
@@ -88,7 +87,6 @@ class Chat extends StatefulWidget {
     this.scrollToUnreadOptions = const ScrollToUnreadOptions(),
     this.showUserAvatars = false,
     this.showUserNames = false,
-    this.listFooterWidget,
     this.systemMessageBuilder,
     this.textMessageBuilder,
     this.textMessageOptions = const TextMessageOptions(),
@@ -257,9 +255,6 @@ class Chat extends StatefulWidget {
   /// See [Message.onMessageVisibilityChanged].
   final void Function(types.Message, bool visible)? onMessageVisibilityChanged;
 
-  /// On footer's message tap.
-  final void Function(BuildContext context, types.Message)? onMessageFooterTap;
-
   /// See [Message.onPreviewDataFetched].
   final void Function(types.TextMessage, types.PreviewData)?
       onPreviewDataFetched;
@@ -318,8 +313,6 @@ class Chat extends StatefulWidget {
   final String? userAgent;
 
   /// Footer icon under messages.
-  final List<Widget>? listFooterWidget;
-
   final List<Widget> Function(types.Message)? listFooterWidgetBuilder;
 
   /// See [ChatList.useTopSafeAreaInset].
@@ -490,10 +483,6 @@ class ChatState extends State<Chat> {
           userAgent: widget.userAgent,
           videoMessageBuilder: widget.videoMessageBuilder,
           listFooterWidgetBuilder: widget.listFooterWidgetBuilder,
-          listFooterWidget: widget.listFooterWidget,
-          onMessageFooterTap: (context, tappedMessage) {
-            widget.onMessageTap?.call(context, tappedMessage);
-          },
         );
       }
 
