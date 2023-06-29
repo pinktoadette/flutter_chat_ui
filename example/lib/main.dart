@@ -223,37 +223,28 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  List<GestureDetector> gestures() => [
-        GestureDetector(
+  List<Widget> _listWidget(types.Message message) => [
+        InkWell(
           onTap: () {
-            print("${_tappedMessage?.id}  ON");
+            print("${message.id}  ON");
           },
           child: Container(
             color: Colors.yellow.shade600,
             padding: const EdgeInsets.all(8),
-            child: const Text('TURN LIGHTS ON'),
+            child: const Text(' ON'),
           ),
         ),
-        GestureDetector(
+        InkWell(
           onTap: () {
-            print("${_tappedMessage?.id}  OFF");
+            print("${message.id}  OFF");
           },
           child: Container(
             color: Colors.red.shade600,
             padding: const EdgeInsets.all(8),
-            child: const Text('TURN LIGHTS OFF'),
+            child: const Text(' OFF'),
           ),
         ),
       ];
-
-  List<Widget> _listWidget() => gestures()
-      .map((gesture) => TextButton(
-            onPressed: () {
-              gesture.onTap!();
-            },
-            child: gesture.child!,
-          ))
-      .toList();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -265,12 +256,7 @@ class _ChatPageState extends State<ChatPage> {
           onSendPressed: _handleSendPressed,
           showUserAvatars: true,
           showUserNames: true,
-          listFooterWidget: _listWidget(),
-          onMessageFooterTap: (context, p1) {
-            setState(() {
-              _tappedMessage = p1;
-            });
-          },
+          listFooterWidgetBuilder: (message) => _listWidget(message),
           user: _user,
         ),
       );

@@ -47,6 +47,7 @@ class Message extends StatelessWidget {
     this.onPreviewDataFetched,
     this.onMessageFooterTap,
     this.listFooterWidget,
+    this.listFooterWidgetBuilder,
     required this.roundBorder,
     required this.showAvatar,
     required this.showName,
@@ -156,6 +157,9 @@ class Message extends StatelessWidget {
 
   /// List of widgets in messages's footer.
   final List<Widget>? listFooterWidget;
+
+  /// List footer builder.
+  final List<Widget> Function(types.Message)? listFooterWidgetBuilder;
 
   /// Rounds border of the message to visually group messages together.
   final bool roundBorder;
@@ -383,22 +387,29 @@ class Message extends StatelessWidget {
                           enlargeEmojis,
                         ),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  alignment: bubbleRtlAlignment == BubbleRtlAlignment.left
-                      ? currentUserIsAuthor
-                          ? AlignmentDirectional.bottomEnd
-                          : AlignmentDirectional.bottomStart
-                      : currentUserIsAuthor
-                          ? Alignment.bottomRight
-                          : Alignment.bottomLeft,
-                  child: MessageFooter(
-                    bottomWidget: listFooterWidget ?? [],
-                    onElementClick: () =>
-                        onMessageFooterTap?.call(context, message),
-                    currentUserIsAuthor: currentUserIsAuthor,
-                  ),
-                ),
+                listFooterWidgetBuilder != null
+                    ? Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        alignment: bubbleRtlAlignment == BubbleRtlAlignment.left
+                            ? currentUserIsAuthor
+                                ? AlignmentDirectional.bottomEnd
+                                : AlignmentDirectional.bottomStart
+                            : currentUserIsAuthor
+                                ? Alignment.bottomRight
+                                : Alignment.bottomLeft,
+                        child: Row(
+                          mainAxisAlignment:
+                              bubbleRtlAlignment == BubbleRtlAlignment.left
+                                  ? currentUserIsAuthor
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.end
+                                  : currentUserIsAuthor
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
+                          children: listFooterWidgetBuilder!(message),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),

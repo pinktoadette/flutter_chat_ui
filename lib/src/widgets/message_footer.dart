@@ -4,7 +4,6 @@ class MessageFooter extends StatefulWidget {
   const MessageFooter({
     super.key,
     required this.bottomWidget,
-    required this.onElementClick,
     required this.currentUserIsAuthor,
   });
 
@@ -12,9 +11,6 @@ class MessageFooter extends StatefulWidget {
 
   /// Bottom row underneath message.
   final List<Widget> bottomWidget;
-
-  /// Upon clicking the bottom row.
-  final Function() onElementClick;
 
   @override
   State<MessageFooter> createState() => _MessageFooterState();
@@ -28,14 +24,10 @@ class _MessageFooterState extends State<MessageFooter>
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () => widget.onElementClick(),
-        child: Row(
-          mainAxisAlignment: widget.currentUserIsAuthor
-              ? MainAxisAlignment.end
-              : MainAxisAlignment.start,
-          children: widget.bottomWidget,
-        ),
+  Widget build(BuildContext context) => Row(
+        mainAxisAlignment: widget.currentUserIsAuthor
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
+        children: widget.bottomWidget,
       );
 }
