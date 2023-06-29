@@ -394,9 +394,8 @@ class Message extends StatelessWidget {
                           : Alignment.bottomLeft,
                   child: MessageFooter(
                     bottomWidget: listFooterWidget ?? [],
-                    onElementClick: (_) {
-                      onMessageFooterTap?.call(context, message);
-                    },
+                    onElementClick: () =>
+                        onMessageFooterTap?.call(context, message),
                     currentUserIsAuthor: currentUserIsAuthor,
                   ),
                 ),

@@ -487,7 +487,9 @@ class ChatState extends State<Chat> {
           userAgent: widget.userAgent,
           videoMessageBuilder: widget.videoMessageBuilder,
           listFooterWidget: widget.listFooterWidget,
-          onMessageFooterTap: widget.onMessageFooterTap,
+          onMessageFooterTap: (context, tappedMessage) {
+            widget.onMessageFooterTap?.call(context, tappedMessage);
+          },
         );
       }
 

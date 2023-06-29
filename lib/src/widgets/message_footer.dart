@@ -14,7 +14,7 @@ class MessageFooter extends StatefulWidget {
   final List<Widget> bottomWidget;
 
   /// Upon clicking the bottom row.
-  final Function(bool isClicked) onElementClick;
+  final Function() onElementClick;
 
   @override
   State<MessageFooter> createState() => _MessageFooterState();
@@ -30,7 +30,7 @@ class _MessageFooterState extends State<MessageFooter>
   @override
   Widget build(BuildContext context) => GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () => widget.onElementClick(true),
+        onTap: () => widget.onElementClick(),
         child: Row(
           mainAxisAlignment: widget.currentUserIsAuthor
               ? MainAxisAlignment.end
