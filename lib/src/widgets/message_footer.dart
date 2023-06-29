@@ -29,9 +29,8 @@ class _MessageFooterState extends State<MessageFooter>
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTapDown: (TapDownDetails _) {
-          widget.onElementClick(true);
-        },
+        behavior: HitTestBehavior.translucent,
+        onTap: () => widget.onElementClick(true),
         child: Row(
           mainAxisAlignment: widget.currentUserIsAuthor
               ? MainAxisAlignment.end

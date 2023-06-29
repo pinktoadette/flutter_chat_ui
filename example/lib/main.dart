@@ -36,7 +36,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<types.Message> _messages = [];
-  int? _tappedIndex;
+  types.Message? _tappedMessage;
   final _user = const types.User(
     id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
   );
@@ -226,9 +226,7 @@ class _ChatPageState extends State<ChatPage> {
   List<GestureDetector> gestures() => [
         GestureDetector(
           onTap: () {
-            setState(() {
-              _tappedIndex = 0;
-            });
+            print("${_tappedMessage?.id}  ON");
           },
           child: Container(
             color: Colors.yellow.shade600,
@@ -238,14 +236,12 @@ class _ChatPageState extends State<ChatPage> {
         ),
         GestureDetector(
           onTap: () {
-            setState(() {
-              _tappedIndex = 1;
-            });
+            print("${_tappedMessage?.id}  OFF");
           },
           child: Container(
             color: Colors.red.shade600,
             padding: const EdgeInsets.all(8),
-            child: const Text('TURN LIGHTS ON'),
+            child: const Text('TURN LIGHTS OFF'),
           ),
         ),
       ];
@@ -255,7 +251,7 @@ class _ChatPageState extends State<ChatPage> {
             onPressed: () {
               gesture.onTap!();
             },
-            child: const Text('Click Here'),
+            child: gesture.child!,
           ))
       .toList();
 
@@ -271,7 +267,9 @@ class _ChatPageState extends State<ChatPage> {
           showUserNames: true,
           listFooterWidget: _listWidget(),
           onMessageFooterTap: (context, p1) {
-            print(p1);
+            setState(() {
+              _tappedMessage = p1;
+            });
           },
           user: _user,
         ),
