@@ -61,6 +61,7 @@ class Chat extends StatefulWidget {
     this.imageMessageBuilder,
     this.imageProviderBuilder,
     this.inputOptions = const InputOptions(),
+    this.inputHeader,
     this.isAttachmentUploading,
     this.isLastPage,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
@@ -199,6 +200,9 @@ class Chat extends StatefulWidget {
 
   /// See [Input.isAttachmentUploading].
   final bool? isAttachmentUploading;
+
+  /// Row above the input area.
+  final Widget? inputHeader;
 
   /// See [ChatList.isLastPage].
   final bool? isLastPage;
@@ -623,7 +627,7 @@ class ChatState extends State<Chat> {
                                 ),
                               ),
                       ),
-                      widget.listBottomWidget ?? const SizedBox.shrink(),
+                      widget.inputHeader ?? const SizedBox.shrink(),
                       widget.customBottomWidget ??
                           Input(
                             isAttachmentUploading: widget.isAttachmentUploading,

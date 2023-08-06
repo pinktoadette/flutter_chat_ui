@@ -114,6 +114,9 @@ class Message extends StatelessWidget {
     required Conditional conditional,
   })? imageProviderBuilder;
 
+  /// List footer builder.
+  final List<Widget> Function(types.Message)? listFooterWidgetBuilder;
+
   /// Any message type.
   final types.Message message;
 
@@ -148,9 +151,6 @@ class Message extends StatelessWidget {
   /// See [TextMessage.onPreviewDataFetched].
   final void Function(types.TextMessage, types.PreviewData)?
       onPreviewDataFetched;
-
-  /// List footer builder.
-  final List<Widget> Function(types.Message)? listFooterWidgetBuilder;
 
   /// Rounds border of the message to visually group messages together.
   final bool roundBorder;

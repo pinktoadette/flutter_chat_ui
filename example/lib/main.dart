@@ -245,6 +245,9 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ),
       ];
+  Widget _listBottomWidget() {
+    return Text("hi");
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -256,6 +259,7 @@ class _ChatPageState extends State<ChatPage> {
           onSendPressed: _handleSendPressed,
           showUserAvatars: true,
           showUserNames: true,
+          inputHeader: _listBottomWidget(),
           listFooterWidgetBuilder: (message) => _listWidget(message),
           user: _user,
         ),
